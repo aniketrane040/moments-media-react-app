@@ -1,12 +1,10 @@
 import React , { useState , useEffect } from 'react';
 import { Container, Grow, Grid, Paper , AppBar , Button , TextField } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
-import { getPosts, getPostsBySearch } from '../../actions/posts';
+import { getPostsBySearch } from '../../actions/posts';
 
 import { useHistory , useLocation } from 'react-router-dom';
-import chipInput from 'material-ui-chip-input';
 import useStyles from './styles';
-
 import Posts from '../Posts/Posts';
 import Form from '../Form/Form';
 import Pagination from '../Pagination';
@@ -27,7 +25,7 @@ const Home = () => {
 
     const page = query.get('page') || 1;
     const searchQuery = query.get('searchQuery');
-
+    
     const searchPost = () => {
         if(search.trim() || tags) {
             dispatch(getPostsBySearch({ search , tags : tags.join(',') }));
@@ -36,6 +34,10 @@ const Home = () => {
             history.push('/');
         }
     }
+
+    useEffect(() => {
+        console.log(searchQuery);
+    },[searchQuery]);
 
     const handleKeyPress = (e) => {
         if(e.keyCode === 13) {

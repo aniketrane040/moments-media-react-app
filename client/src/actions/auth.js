@@ -9,7 +9,7 @@ export const signin = (formData , history) => async (dispatch) => {
 
         history.push('/');
     } catch (error) {
-        console.log(error);
+        console.log(error);  
     }
 }
 

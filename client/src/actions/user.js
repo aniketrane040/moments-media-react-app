@@ -38,6 +38,7 @@ export const changePic = (email,profilePic) => async (dispatch) => {
 export const followUser = (followerId,followingId) => async(dispatch) => {
     try {
         const { data } = await api.setFollow(followerId,followingId);
+        console.log(data);
         dispatch({ type : FOLLOW_USER , payload : data});
     } catch (error) {
         console.log(error.message);

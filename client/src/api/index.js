@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+// const API = axios.create({ baseURL : 'https://myprecious-moments.herokuapp.com' });
 const API = axios.create({ baseURL : 'http://localhost:5000' });
 
 API.interceptors.request.use((req) => {
@@ -34,10 +35,12 @@ export const signUp = (formData) => API.post('/users/signup',formData);
 
 export const getUserById = (id) => API.get(`/users/${id}`);
 
-export const setFollow = (followerId,followingId) => API.patch(`users/follow`,{ followerId , followingId});
+export const setFollow = (followerId,followingId) => API.post(`/users/follow`,{ followerId , followingId});
 
-export const setUnFollow = (followerId,followingId) => API.patch(`users/unfollow`,{ followerId , followingId});
+export const setUnFollow = (followerId,followingId) => API.post(`/users/unfollow`,{ followerId , followingId});
 
-export const changeDescription = (email,userDescription) => API.patch('users/changeDescription',{ email , userDescription });
+export const changeDescription = (email,userDescription) => API.patch('/users/changeDescription',{ email , userDescription });
 
-export const changeProfilePic = (email,profilePic) => API.patch('users/changePic',{ email , profilePic });
+export const changeProfilePic = (email,profilePic) => API.patch('/users/changePic',{ email , profilePic });
+
+export const share = (id,shareData) => API.post('/posts/share',{ id, shareData});

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { AppBar, Avatar, Button, Toolbar, Typography } from '@material-ui/core';
-import { Link, Redirect, useHistory, useLocation } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import decode from 'jwt-decode';
 import { useDispatch } from 'react-redux';
 
@@ -36,7 +36,12 @@ const Navbar = () => {
         setUser(null);
     };
 
-    const gotoProfile = () => history.push(`/profile/${user.result._id}`);
+    const gotoProfile = () => {
+        if(user.result._id)
+            history.push(`/profile/${user.result._id}`);
+        else
+            window.alert("first create your profile on sign up page");
+    }
 
     return (
         <AppBar className={classes.appBar} position="static" color="inherit">

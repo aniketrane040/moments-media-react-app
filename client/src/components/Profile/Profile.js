@@ -1,5 +1,4 @@
-import { Paper, Button, Typography, Avatar, CssBaseline, Divider, TextField, IconButton } from '@material-ui/core';
-import CameraAltIcon from '@material-ui/icons/CameraAlt';
+import { Paper, Button, Typography, Avatar, CssBaseline, Divider, TextField } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import FileBase from 'react-file-base64';
 import Posts from '../Posts/Posts';
@@ -18,8 +17,6 @@ const Profile = () => {
     const [isChangeDesc, setIsChangeDesc] = useState(false);
     const [description, setDescription] = useState(user?.description);
     const [profilePic, setProfilePic] = useState('');
-    const [avatar, setAvatar] = useState("");
-
     useEffect(() => {
         const getUserDetails = async () => {
             await dispatch(getUser(id));
@@ -74,18 +71,25 @@ const Profile = () => {
                         {user.name}
                     </Typography><br />
 
-                    <FileBase
-                        type="file"
-                        style={{ display: 'none' }}
-                        multiple={false}
-                        onDone={({ base64 }) => setProfilePic(base64)}
-                    />
-                    <Button variant='contained' color='primary' onClick={changeProfilePic}>Change Photo</Button> <br />
+                    {
+                        signInUser?.result?._id === user._id && (
+                            <>
+                                <FileBase
+                                    type="file"
+                                    style={{ display: 'none' }}
+                                    multiple={false}
+                                    onDone={({ base64 }) => setProfilePic(base64)}
+                                />
+                                <Button variant='contained' color='primary' onClick={changeProfilePic}>Change Photo</Button> <br />
+                            </>
+                        )
+                    }
+
                     <Divider /> <br /> <br />
                     <Typography variant="h4">Description</Typography> <br />
                     <div className={classes.editProfile}>
                         {
-                            (signInUser?.result?._id === user._id) && (signInUser) ? (
+                            signInUser?.result?._id === user._id ? (
                                 isChangeDesc ? (
                                     <TextField name="description" editable variant="outlined" label="Description" multiline rows={4} value={description} onChange={(e) => setDescription(e.target.value)} />
                                 ) : (
@@ -96,7 +100,7 @@ const Profile = () => {
                         }
                     </div>
                     <br />
-                    {(signInUser?.result?._id === user._id) && (signInUser) && (
+                    {signInUser?.result?._id === user._id && (
                         <Button variant="outlined" color="primary" onClick={handleDescription}>{isChangeDesc ? 'set' : 'change'}</Button>
                     )}
                 </div> <br />
@@ -106,7 +110,7 @@ const Profile = () => {
                         <div><Typography>Followers </Typography>{user.followers.length}</div>
                         <div><Typography>Following </Typography>{user.following.length}</div>
                         {
-                            (signInUser?.result?._id !== user._id) && (signInUser) && (
+                            (signInUser?.result?._id !== user._id && signInUser) && (
                                 <div><Button variant="contained" color="primary" onClick={handleFollow}>{follow ? 'FOLLOW' : 'UNFOLLOW'}</Button></div>
                             )
                         }

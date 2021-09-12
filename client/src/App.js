@@ -8,6 +8,7 @@ import Home from './components/Home/Home';
 import Auth from './components/Auth/Auth';
 import PostDetails from './components/PostDetails/PostDetails';
 import Profile from './components/Profile/Profile';
+import Schedule from './components/Schedule/Schedule';
 
 const App = () => {
 
@@ -24,6 +25,7 @@ const App = () => {
                     <Route path="/posts/:id" component={PostDetails} />
                     <Route path="/auth" exact component={() => (!user ? <Auth /> : <Redirect to="/posts" />)} />
                     <Route path="/profile/:id" exact component={Profile}></Route>
+                    <Route path="/share-moments/:id" exact component={Schedule}></Route>
                 </Switch>
             </Container>
         </BrowserRouter>

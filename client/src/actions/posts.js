@@ -22,6 +22,7 @@ export const getPosts = (page) => async (dispatch) => {
         dispatch({ type : START_LOADING });
 
         const { data } = await api.fetchPosts(page);
+        console.log(data);
         dispatch({ type: FETCH_ALL ,payload: data});
 
         dispatch({ type : END_LOADING });
@@ -105,4 +106,15 @@ export const commentPost = (value , id) => async (dispatch) => {
     } catch (error) {
         console.log(error.message);
     }   
+}
+
+export const shareMoment = (id,shareData,history) => async (dispatch) => {
+    try {
+        const {data} = await api.share(id,shareData);
+        window.alert("Moment Shared !");
+        history.push("/");
+        console.log(data);
+    } catch (error) {
+        console.log(error.message);
+    }
 }
